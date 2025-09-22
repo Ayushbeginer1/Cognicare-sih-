@@ -1,4 +1,4 @@
-# Team_Psychbi
+# Team_Psychbit
 Development of a Digital Mental Health and Psychological Support System for Students in Higher Education.
 ## Table of Contents
 - [Introduction](#introduction)
