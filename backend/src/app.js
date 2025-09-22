@@ -13,7 +13,7 @@ app.use(cors());
 
 // Logger (only in development)
 if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev'));
+    app.use(morgan('dev'));
 }
 
 // Routes
@@ -21,7 +21,7 @@ app.use('/api/auth', authRoutes);
 
 // Base Route
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to the SIH Project Backend 🚀" });
+    res.json({ message: "Welcome to the SIH Project Backend 🚀" });
 });
 
 export default app;

@@ -1,4 +1,3 @@
-import e from 'cors';
 import express from 'express';
 import { register, login } from '../controllers/auth.controller.js';
 

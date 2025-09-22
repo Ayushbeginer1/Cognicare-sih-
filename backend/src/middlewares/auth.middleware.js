@@ -1,4 +1,4 @@
-const authMiddleware = (req, res, next) => {
+async function authMiddleware(req, res, next) {
   res.send("Middleware placeholder");
 };
 
