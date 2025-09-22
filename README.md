@@ -1,4 +1,4 @@
-# Team_Psychbit
+# Cognicare
 Development of a Digital Mental Health and Psychological Support System for Students in Higher Education.
 ## Table of Contents
 - [Introduction](#introduction)
@@ -7,7 +7,7 @@ Development of a Digital Mental Health and Psychological Support System for Stud
 - [Technologies Used](#technologies-used)
 
 ## Introduction
-Team_Psychbit aims to provide a comprehensive digital platform for mental health and psychological support tailored for students in higher education. The system offers resources, assessments, and support channels to promote well-being and resilience.
+Cognicare aims to provide a comprehensive digital platform for mental health and psychological support tailored for students in higher education. The system offers resources, assessments, and support channels to promote well-being and resilience.
 
 ## Features
 - Anonymous mental health assessments
