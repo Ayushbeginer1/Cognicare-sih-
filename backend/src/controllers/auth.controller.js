@@ -45,4 +45,20 @@ async function login(req, res, next) {
 	}
 };
 
-export { register, login };
+function getProfile(req, res) {
+	try {
+		if (!req.user) {
+			return res.status(404).json({ message: "User not found" });
+		}
+		res.status(200).json({
+			id: req.user._id,
+			name: req.user.name,
+			email: req.user.email,
+		});
+	} catch (error) {
+		res.status(500).json({ message: "Server error", error: error.message });
+		next(error);
+	}
+}
+
+export { register, login, getProfile };
