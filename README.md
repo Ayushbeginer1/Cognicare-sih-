@@ -1,5 +1,7 @@
 # Cognicare
-Development of a Digital Mental Health and Psychological Support System for Students in Higher Education.
+
+A digital platform for mental health and psychological support designed for students in higher education.
+
 ## Table of Contents
 - [Introduction](#introduction)
 - [Features](#features)
@@ -7,19 +9,19 @@ Development of a Digital Mental Health and Psychological Support System for Stud
 - [Technologies Used](#technologies-used)
 
 ## Introduction
-Cognicare aims to provide a comprehensive digital platform for mental health and psychological support tailored for students in higher education. The system offers resources, assessments, and support channels to promote well-being and resilience.
+Cognicare provides students with accessible mental health resources, anonymous assessments, and direct support from counselors. The platform is built to foster well-being, resilience, and confidentiality.
 
 ## Features
 - Anonymous mental health assessments
-- Access to self-help resources
-- Chat-based support with counselors
+- Self-help resource library
+- Real-time chat support with counselors
 - Progress tracking and personalized recommendations
-- Secure and confidential data handling
+- Secure, confidential data management
 
 ## Usage
-- Register or log in as a student or counselor.
-- Complete assessments and access resources.
-- Use the chat feature for real-time support.
+1. Register or log in as a student or counselor.
+2. Complete assessments and explore resources.
+3. Connect with counselors via chat for support.
 
 ## Technologies Used
 - Node.js
