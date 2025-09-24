@@ -1,11 +1,10 @@
 import Appointment from "../models/appointment.model.js";
 import { encrypt, decrypt } from "../utils/crypto.js";
-import User from "../models/user.model.js";
 
 // Create a new booking (appointment)
 async function createBooking(req, res) {
     try {
-        const {appointmentDate, isAnonymous = false, pseudonym, contact } = req.body;
+        const {appointmentDate, pseudonym, contact } = req.body;
 
         if (!appointmentDate) {
             return res.status(400).json({ message: "Appointment date is required" });
@@ -13,22 +12,22 @@ async function createBooking(req, res) {
 
         let bookingData = {
             appointmentDate,
-            isAnonymous,
-            pseudonym: isAnonymous ? pseudonym || "Anonymous" : undefined,
         };
-        if (isAnonymous) {
-            if (!contact) {
-                return res.status(400).json({ message: "Contact information is required for anonymous bookings" });
-            }
-            bookingData.encryptedContact = encrypt(contact);
-        } else {
-            if (!req.user) {
-                return res.status(401).json({ message: "Authentication required for non-anonymous bookings" });
-            }
+        if (req.user) {
             bookingData.user = req.user._id;
+            bookingData.isAnonymous = false;
             if (contact) {
                 bookingData.encryptedContact = encrypt(contact);
             }
+        } else {
+            bookingData.isAnonymous = true;
+            bookingData.pseudonym = pseudonym || "Anonymous";
+            if (!contact) {
+                return res.status(400).json({ message: "Contact information is required for anonymous bookings" });
+            }
+            bookingData.isAnonymous = true;
+            bookingData.pseudonym = pseudonym || "Anonymous";
+            bookingData.encryptedContact = encrypt(contact);
         }
         const appointment = await Appointment.create(bookingData);
         res.status(201).json({message: "Appointment created successfully", appointment});

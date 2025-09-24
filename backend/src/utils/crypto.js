@@ -1,28 +1,32 @@
-import crypto from 'crypto';
+import crypto from "crypto";
 
-const algo = 'aes-256-gcm';
-const key = crypto.scryptSync(process.env.ENCRYPTION_KEY, 'salt', 32);
+const keyHex = process.env.ENCRYPTION_KEY;
+if (!keyHex) {
+  throw new Error("ENCRYPTION_KEY is not set in .env");
+}
 
-if(!key || key.length !== 32) {
-    throw new Error("Invalid encryption key. Ensure ENCRYPTION_KEY is set and is 32 bytes long.");
-};
+// Convert hex string (64 chars = 32 bytes) to a Buffer
+const key = Buffer.from(keyHex, "hex");
 
+if (key.length !== 32) {
+  throw new Error("Invalid encryption key. Ensure ENCRYPTION_KEY is 32 bytes long.");
+}
+
+// Example encryption function
 export function encrypt(text) {
-    const iv = crypto.randomBytes(12);
-    const cipher = crypto.createCipheriv(algo, Buffer.from(key), iv);
-    let encrypted = cipher.update(text, 'utf8', 'hex');
-    encrypted += cipher.final('hex');
-    const tag = cipher.getAuthTag().toString('hex');
-    return `${iv.toString("hex")}:${tag}:${encrypted}`;
-};
+  const iv = crypto.randomBytes(16); // 16-byte IV for AES
+  const cipher = crypto.createCipheriv("aes-256-cbc", key, iv);
+  let encrypted = cipher.update(text, "utf8", "hex");
+  encrypted += cipher.final("hex");
+  return iv.toString("hex") + ":" + encrypted;
+}
 
-export function decrypt(payload) {
-    const [ivHex, tagHex, encrypted] = payload.split(":");
-    const iv = Buffer.from(ivHex, 'hex');
-    const tag = Buffer.from(tagHex, 'hex');
-    const decipher = crypto.createDecipheriv(algo, Buffer.from(key), iv);
-    decipher.setAuthTag(tag);
-    let decrypted = decipher.update(encrypted, 'hex', 'utf8');
-    decrypted += decipher.final('utf8');
-    return decrypted;
-};
+// Example decryption function
+export function decrypt(encryptedText) {
+  const [ivHex, encrypted] = encryptedText.split(":");
+  const iv = Buffer.from(ivHex, "hex");
+  const decipher = crypto.createDecipheriv("aes-256-cbc", key, iv);
+  let decrypted = decipher.update(encrypted, "hex", "utf8");
+  decrypted += decipher.final("utf8");
+  return decrypted;
+}

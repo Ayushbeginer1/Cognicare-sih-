@@ -5,14 +5,11 @@ import morgan from 'morgan';
 import authRoutes from './routes/auth.routes.js';
 import bookingRoutes from './routes/booking.routes.js';
 import { errorHandler, notFound } from './utils/error.handler.js';
+import { encrypt, decrypt } from "./utils/crypto.js";
 
 const app = express();
 
-// Error Handling
-app.use(notFound);
-app.use(errorHandler);
-
-// Middleware
+// Core Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
@@ -26,10 +23,8 @@ if (process.env.NODE_ENV === 'development') {
 app.use('/api/auth', authRoutes);
 app.use('/api/bookings', bookingRoutes);
 
-
-// Base Route
-app.get("/", (req, res) => {
-    res.json({ message: "Welcome to the SIH Project Backend 🚀" });
-});
+// Error Handling
+app.use(notFound);
+app.use(errorHandler);
 
 export default app;
