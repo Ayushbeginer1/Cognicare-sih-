@@ -1,9 +1,7 @@
 import mongoose from "mongoose";
 
 const appointmentSchema = new mongoose.Schema({
-    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: function () { return !this.isAnonymous; } },
-    pseudonym: { type: String, },
-    isAnonymous: { type: Boolean, default: false },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     encryptedContact: { type: String},
     counselorId: { type: mongoose.Schema.Types.ObjectId, ref: 'User'},
     appointmentDate: { type: Date, required: true },

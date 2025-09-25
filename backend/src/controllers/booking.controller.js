@@ -4,29 +4,17 @@ import { encrypt, decrypt } from "../utils/crypto.js";
 // Create a new booking (appointment)
 async function createBooking(req, res) {
     try {
-        const {appointmentDate, pseudonym, contact } = req.body;
+        const {appointmentDate, contact } = req.body;
 
         if (!appointmentDate) {
             return res.status(400).json({ message: "Appointment date is required" });
         }
-
-        let bookingData = {
+        const bookingData = {
+            user: req.user._id,
             appointmentDate,
+            isAnonymous: false,
         };
-        if (req.user) {
-            bookingData.user = req.user._id;
-            bookingData.isAnonymous = false;
-            if (contact) {
-                bookingData.encryptedContact = encrypt(contact);
-            }
-        } else {
-            bookingData.isAnonymous = true;
-            bookingData.pseudonym = pseudonym || "Anonymous";
-            if (!contact) {
-                return res.status(400).json({ message: "Contact information is required for anonymous bookings" });
-            }
-            bookingData.isAnonymous = true;
-            bookingData.pseudonym = pseudonym || "Anonymous";
+        if (contact) {
             bookingData.encryptedContact = encrypt(contact);
         }
         const appointment = await Appointment.create(bookingData);
@@ -61,8 +49,7 @@ async function getBookingById(req, res) {
             }
             const response = {
                 id: booking._id,
-                isAnanymous: booking.isAnonymous,
-                pseudonym: booking.pseudonym,
+                isAnonymous: booking.isAnonymous,
                 appointmentDate: booking.appointmentDate,
                 status: booking.status,
                 notes: booking.notes,

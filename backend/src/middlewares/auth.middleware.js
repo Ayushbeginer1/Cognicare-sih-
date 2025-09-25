@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken';
-
 import User from '../models/user.model.js';
 
 async function protect(req, res, next) {
@@ -20,4 +19,5 @@ async function protect(req, res, next) {
 	}
 };
 
-export default protect;
+
+export { protect};

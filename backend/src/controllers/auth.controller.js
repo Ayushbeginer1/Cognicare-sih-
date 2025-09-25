@@ -14,6 +14,7 @@ async function register(req, res, next) {
 		res.status(201).json({
 			message: "User registered successfully",
 			user: { id: newUser._id, name: newUser.name, email: newUser.email },
+			isAdmin: newUser.isAdmin,
 			token: await generateToken(newUser._id)
 		});
 	} catch (error) {
@@ -37,6 +38,7 @@ async function login(req, res, next) {
 		res.status(200).json({
 			message: "Login successful",
 			user: { id: user._id, name: user.name, email: user.email },
+			isAdmin: user.isAdmin,
 			token: await generateToken(user._id)
 		});
 	} catch (error) {
