@@ -6,10 +6,10 @@ const answerSchema = new mongoose.Schema({
 }, { _id: false });
 
 const botReplySchema = new mongoose.Schema({
-    source: { type: String},
+    source: { type: String, default: 'dummy-bot' },
     severity: { type: String},
-    suggestion: [String],
-    raw: {type: String},
+    suggestions: [String],
+    raw: { type: mongoose.Schema.Types.Mixed },
     createdAt: { type: Date, default: Date.now }
 }, { _id: false });
 
@@ -19,7 +19,7 @@ const assessmentSchema = new mongoose.Schema({
     answers: [answerSchema],
     score: { type: Number },
     interpretation: { type: String },
-    botReply: botReplySchema,
+    botReplies: { type: [botReplySchema], default: [] },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }
 });

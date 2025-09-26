@@ -38,3 +38,5 @@ function scoreAssessment(type, answers) {
         default: return { score: 0, interpretation: 'unknown assessment type' };
     }
 }
+
+export { scoreAssessment, scorePHQ, scoreGAD7, scoreGHQ };

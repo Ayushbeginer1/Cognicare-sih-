@@ -4,7 +4,8 @@ import morgan from 'morgan';
 
 import authRoutes from './routes/auth.routes.js';
 import bookingRoutes from './routes/booking.routes.js';
-import { errorHandler, notFound } from './utils/error.handler.js';
+import psychocareRoutes from './routes/psychocare.routes.js';
+import { errorHandler, notFound } from './middlewares/error.handler.js';
 import { encrypt, decrypt } from "./utils/crypto.js";
 
 const app = express();
@@ -22,6 +23,7 @@ if (process.env.NODE_ENV === 'development') {
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/bookings', bookingRoutes);
+app.use('/api/psychocare', psychocareRoutes);
 
 // Error Handling
 app.use(notFound);
