@@ -28,12 +28,11 @@ Cognicare empowers students by providing accessible mental health resources, con
 ## Technologies Used
 - Node.js
 - Express.js
-- React.js
-- MongoDB
+- HTML,CSS,js
+- MongoDB/SQL
+- Hugging Face Transformers 
+- Flask
 - Socket.io
-
-## Contributing
-Contributions are welcome! Please open issues or submit pull requests for improvements.
 
 ## License
 This project is licensed under the MIT License.
