@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #a2d4f6;
+            --color-secondary: #d8c7f1;
+            --color-accent: #8b5cf6;
+            --color-dark: #1f2937;
+            --color-text: #111827;
+            --color-text-light: #ffffff;
+
+            /* gradient variables (were referenced but not defined) */
+            --bg-gradient-start: #e0f7ff;
+            --bg-gradient-end: #f3e8ff;
+
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+            --spacing-2xl: 4rem;
+
+            --font-family: "Cairo", sans-serif;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.125rem;
+            --font-size-xl: 1.5rem;
+            --font-size-2xl: 2rem;
+            --font-size-3xl: 3rem;
+
+            --border-radius-sm: 0.5rem;
+            --border-radius-md: 1rem;
+            --border-radius-lg: 1.5rem;
+            --border-radius-full: 9999px;
+
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+
+            --transition-fast: 150ms ease-in-out;
+            --transition-base: 300ms ease-in-out;
+            --transition-slow: 500ms ease-in-out;
+        }
+        .bubble {
+            position: fixed;
+            border-radius: var(--border-radius-full);
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            pointer-events: none;
+            z-index: 0;
+            animation: floatBubble 15s infinite ease-in-out;
+        }
+
+        .bubble:nth-child(1) {
+            width: 150px;
+            height: 150px;
+            top: 10%;
+            left: 15%;
+            animation-delay: 0s;
+        }
+
+        .bubble:nth-child(2) {
+            width: 100px;
+            height: 100px;
+            top: 60%;
+            right: 20%;
+            animation-delay: 3s;
+        }
+
+        .bubble:nth-child(3) {
+            width: 200px;
+            height: 200px;
+            bottom: 15%;
+            left: 10%;
+            animation-delay: 6s;
+        }
+
+        .bubble:nth-child(4) {
+            width: 120px;
+            height: 120px;
+            top: 40%;
+            right: 10%;
+            animation-delay: 9s;
+        }
+
+        @keyframes floatBubble {
+            0%, 100% { 
+                transform: translateY(0) scale(1); 
+                opacity: 0.5; 
+            }
+            50% { 
+                transform: translateY(-50px) scale(1.1); 
+                opacity: 0.8; 
+            }
+        }
+
+        body {
+            font-family: var(--font-family);
+            color: var(--color-text);
+            line-height: 1.6;
+            min-height: 100vh;
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+            position: relative;
+            overflow-x: hidden;
+            transition: background var(--transition-slow), color var(--transition-base);
+        } /* <-- closing brace added */
+
+        /* simple keyframes for the background animation */
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .header{
+            text-align: center;
+            margin-bottom: var(--spacing-xl) ;
+        }
+         .site-header {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: var(--border-radius-lg);
+            margin: var(--spacing-md);
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            z-index: 100;
+            display: flex;
+        }
+
+       .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .site-logo {
+            font-size: var(--font-size-2xl);
+            font-weight: 700;
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--spacing-sm);
+            margin-top: 10px;
+        }
+        .nav-list {
+            list-style: none;
+            display: flex;
+            gap: var(--spacing-lg);
+            flex-wrap: wrap;
+            text-align: center;
+        }
+        .nav-link {
+            color: var(--color-dark);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: var(--font-size-base);
+            transition: all var(--transition-base);
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--border-radius-sm);
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--color-accent);
+            transition: all var(--transition-base);
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover {
+            color: var(--color-accent);
+            transform: translateY(-2px);
+        }
+
+        .nav-link:hover::after {
+            width: 80%;
+        }
+
+        .nav-link:focus {
+            outline: 2px solid var(--color-accent);
+            outline-offset: 4px;
+        }
+
+        .nav-link--profile {
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+            color: var(--color-text-light);
+            padding: var(--spacing-xs) var(--spacing-md);
+            border-radius: var(--border-radius-full);
+            font-weight: 600;
+        }
+
+        .nav-link--profile:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .nav-link--profile::after {
+            display: none;
+        }
+    </style>
+
+</head>
+<body style="background-color: var(--color-dark);">
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="container" >
+    <div style="justify-items: center;">
+        <h3 class="site-logo" >Cognicare</h3>
+    </div>
+    </div>
+    <div class="container" style="justify-items: center; margin-top: 200px; ">
+        <ul class="nav-list" >
+            <li ><a href="#login" class="nav-link nav-link--profile"style="font-size: 20px; right: 30px;">Login?</a></li>
+            <br>
+            <li><a href="#Signup" class="nav-link nav-link--profile"style="font-size:20px;">Signup?</a></li>
+        </ul>
+    </div>
+</body>
+</html>

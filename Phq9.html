@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHQ-9 Assessment - CogniCare</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Variables */
+        :root {
+            --color-primary: #a2d4f6;
+            --color-secondary: #d8c7f1;
+            --color-accent: #8b5cf6;
+            --color-dark: #1f2937;
+            --color-text: #111827;
+            --color-text-light: #ffffff;
+            --color-success: #10b981;
+            --color-warning: #f59e0b;
+            --color-danger: #ef4444;
+            
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+            
+            --font-family: "Cairo", sans-serif;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.125rem;
+            --font-size-xl: 1.5rem;
+            --font-size-2xl: 2rem;
+            
+            --border-radius-sm: 0.5rem;
+            --border-radius-md: 1rem;
+            --border-radius-lg: 1.5rem;
+            --border-radius-full: 9999px;
+            
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            
+            --transition-base: 300ms ease-in-out;
+            
+            --bg-gradient-start: #a2d4f6;
+            --bg-gradient-end: #d8c7f1;
+        }
+
+        [data-theme="dark"] {
+            --color-primary: #1e3a8a;
+            --color-secondary: #4c1d95;
+            --color-accent: #a78bfa;
+            --color-dark: #f9fafb;
+            --color-text: #f9fafb;
+            --color-text-light: #111827;
+            --bg-gradient-start: #0f172a;
+            --bg-gradient-end: #1e1b4b;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root:not([data-theme="light"]) {
+                --color-primary: #1e3a8a;
+                --color-secondary: #4c1d95;
+                --color-accent: #a78bfa;
+                --color-dark: #f9fafb;
+                --color-text: #f9fafb;
+                --color-text-light: #111827;
+                --bg-gradient-start: #0f172a;
+                --bg-gradient-end: #1e1b4b;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            color: var(--color-text);
+            line-height: 1.6;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+            padding: var(--spacing-lg);
+            transition: background var(--transition-base), color var(--transition-base);
+        }
+
+        @keyframes gradientAnimation {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .logo {
+            font-size: var(--font-size-2xl);
+            font-weight: 700;
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: var(--spacing-lg);
+            right: var(--spacing-lg);
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: var(--border-radius-full);
+            padding: var(--spacing-sm) var(--spacing-md);
+            cursor: pointer;
+            font-size: var(--font-size-lg);
+            color: var(--color-dark);
+            transition: all var(--transition-base);
+            z-index: 1000;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .form-card {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-xl);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .form-title {
+            font-size: var(--font-size-xl);
+            font-weight: 700;
+            color: var(--color-dark);
+            margin-bottom: var(--spacing-xs);
+            text-align: center;
+        }
+
+        .form-subtitle {
+            font-size: var(--font-size-base);
+            color: var(--color-dark);
+            opacity: 0.8;
+            margin-bottom: var(--spacing-lg);
+            text-align: center;
+        }
+
+        .instruction {
+            background: rgba(139, 92, 246, 0.1);
+            border-left: 4px solid var(--color-accent);
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius-sm);
+            margin-bottom: var(--spacing-xl);
+            font-weight: 500;
+        }
+
+        .question-group {
+            margin-bottom: var(--spacing-xl);
+            padding-bottom: var(--spacing-lg);
+            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .question-group:last-of-type {
+            border-bottom: none;
+        }
+
+        .question-text {
+            font-size: var(--font-size-base);
+            font-weight: 600;
+            color: var(--color-dark);
+            margin-bottom: var(--spacing-md);
+            line-height: 1.5;
+        }
+
+        .question-number {
+            color: var(--color-accent);
+            font-weight: 700;
+            margin-right: var(--spacing-xs);
+        }
+
+        .radio-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--spacing-sm);
+        }
+
+        .radio-option {
+            position: relative;
+        }
+
+        .radio-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .radio-label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-md);
+            background: rgba(255, 255, 255, 0.3);
+            border: 2px solid rgba(139, 92, 246, 0.2);
+            border-radius: var(--border-radius-md);
+            cursor: pointer;
+            transition: all var(--transition-base);
+            text-align: center;
+            min-height: 100px;
+        }
+
+        .radio-option input[type="radio"]:checked + .radio-label {
+            background: rgba(139, 92, 246, 0.3);
+            border-color: var(--color-accent);
+            transform: scale(1.05);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .radio-label:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .radio-option input[type="radio"]:focus + .radio-label {
+            outline: 2px solid var(--color-accent);
+            outline-offset: 4px;
+        }
+
+        .option-label {
+            font-weight: 500;
+            font-size: var(--font-size-sm);
+            color: var(--color-dark);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .option-value {
+            font-weight: 700;
+            font-size: var(--font-size-xl);
+            color: var(--color-accent);
+        }
+
+        .difficulty-section {
+            background: rgba(236, 72, 153, 0.1);
+            border: 2px solid rgba(236, 72, 153, 0.3);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-lg);
+            margin-top: var(--spacing-xl);
+        }
+
+        .difficulty-question {
+            font-weight: 600;
+            color: var(--color-dark);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .score-display {
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+            color: var(--color-text-light);
+            padding: var(--spacing-lg);
+            border-radius: var(--border-radius-md);
+            text-align: center;
+            margin-bottom: var(--spacing-lg);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .score-label {
+            font-size: var(--font-size-base);
+            opacity: 0.9;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .score-value {
+            font-size: 3rem;
+            font-weight: 700;
+        }
+
+        .severity-indicator {
+            margin-top: var(--spacing-sm);
+            font-weight: 600;
+            font-size: var(--font-size-lg);
+        }
+
+        .button-group {
+            display: flex;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-xl);
+        }
+
+        .btn {
+            flex: 1;
+            padding: var(--spacing-md) var(--spacing-lg);
+            border: none;
+            border-radius: var(--border-radius-full);
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            font-family: var(--font-family);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+            color: var(--color-text-light);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            color: var(--color-dark);
+            border: 2px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn:disabled:hover {
+            transform: none;
+        }
+
+        .success-message {
+            background: rgba(16, 185, 129, 0.2);
+            border: 2px solid var(--color-success);
+            color: var(--color-dark);
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius-md);
+            margin-top: var(--spacing-lg);
+            text-align: center;
+            font-weight: 600;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .disclaimer {
+            background: rgba(245, 158, 11, 0.1);
+            border-left: 4px solid var(--color-warning);
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius-sm);
+            margin-top: var(--spacing-lg);
+            font-size: var(--font-size-sm);
+            color: var(--color-dark);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: var(--spacing-sm);
+            }
+
+            .form-card {
+                padding: var(--spacing-md);
+            }
+
+            .radio-group {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .theme-toggle {
+                top: var(--spacing-sm);
+                right: var(--spacing-sm);
+                padding: var(--spacing-xs) var(--spacing-sm);
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
+        <span id="themeIcon">🌙</span>
+    </button>
+
+    <div class="container">
+        <div class="header">
+            <h1 class="logo">CogniCare</h1>
+            <p style="color: var(--color-dark); opacity: 0.8;">Mental Health Assessment</p>
+        </div>
+
+        <div class="form-card">
+            <h2 class="form-title">Patient Health Questionnaire-9 (PHQ-9)</h2>
+            <p class="form-subtitle">Depression Screening Tool</p>
+
+            <div class="instruction">
+                <strong>Instructions:</strong> Over the last 2 weeks, how often have you been bothered by any of the following problems?
+            </div>
+
+            <form id="phq9Form">
+                <!-- Question 1 -->
+                <div class="question-group">
+                    <div class="question-text">
+                        <span class="question-number">1.</span>
+                        Little interest or pleasure in doing things
+                    </div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q1" value="0" id="q1_0" required>
+                            <label for="q1_0" class="radio-label">
+                                <span class="option-label">Not at all</span>
+                                <span class="option-value">0</span>
+                            </label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q1" value="1" id="q1_1">
+                            <label for="q1_1" class="radio-label">
+                                <span class="option-label">Several days</span>
+                                <span class="option-value">1</span>
+                            </label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q1" value="2" id="q1_2">
+                            <label for="q1_2" class="radio-label">
+                                <span class="option-label">More than half the days</span>
+                                <span class="option-value">2</span>
+                            </label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q1" value="3" id="q1_3">
+                            <label for="q1_3" class="radio-label">
+                                <span class="option-label">Nearly every day</span>
+                                <span class="option-value">3</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="question-group">
+                    <div class="question-text">
+                        <span class="question-number">2.</span>
+                        Feeling down, depressed, or hopeless
+                    </div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q2" value="0" id="q2_0" required>
+                            <label for="q2_0" class="radio-label">
+                                <span class="option-label">Not at all</span>
+                                <span class="option-value">0</span>
+                            </label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q2" value="1" id="q2_1">
+                            <label for="q2_1" class="radio-label">
+                                <span class="option-label">Several days</span>
+                                <span class="option-value">1</span>
+                            </label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q2" value="2" id="q2_2">
+                            <label for="q2_2" class="radio-label">
+                                <span class="option-label">More than half the days</span>
+                                <span class="option-value">2</span>
+                            </label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q2" value="3" id="q2_3">
+                            <label for="q2_3" class="radio-label">
+                                <span class="option-label">Nearly every day</span>
+                                <span class="option-value">3</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="question-group">
+                    <div class="question-text">
+                        <span class="question-number">3.</span>
+                        Trouble falling or staying asleep, or sleeping too much
+                    </div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q3" value="0" id="q3_0" required>
+                            <label for="q3_0" class="radio-label">
+                                <span class="option-label">Not at all</span>
+                                <span class="option-value">0</span>
+                            </label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q3" value="1" id="q3_1">
+                            <label for="q3_1" class="radio-label">
+                                <span class="option-label">Several days</span>
+                                <span class="option-value">1</span>
+                            </label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q3" value="2" id="q3_2">
+                            <label for="q3_2" class="radio-label">
+                                <span class="option-label">More than half the days</span>
+                                <span class="option-value">2</span>
+                            </label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q3" value="3" id="q3_3">
+                            <label for="q3_3" class="radio-label">
+                                <span class="option-label">Nearly every day</span>
+                                <span class="option-value">3</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="question-group">
+                    <div class="question-text">
+                        <span class="question-number">4.</span>
+                        Feeling tired or having little energy
+                    </div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q4" value="0" id="q4_0" required>
+                            <label for="q4_0" class="radio-label">
+                                <span class="option-label">Not at all</span>
+                                <span class="option-value">0</span>
+                            </label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q4" value="1" id="q4_1">
+                            <label for="q4_1" class="radio-label">
+                                <span class="option-label">Several days</span>
+                                <span class="option-value">1</span>
+                            </label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q4" value="2" id="q4_2">
+                            <label for="q4_2" class="radio-label">
+                                <span class="option-label">More than half the days</span>
+                                <span class="option-value">2</span>
+                            </label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q4" value="3" id="q4_3">
+                            <label for="q4_3" class="radio-label">
+                                <span class="option-label">Nearly every day</span>
+                                <span class="option-value">3</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 5 -->
+                <div class="question-group">
+                    <div class="question-text">
+                        <span class="question-number">5.</span>
+                        Poor appetite or overeating
+                    </div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q5" value="0" id="q5_0" required>
+                            <label for="q5_0" class="radio-label">
+                                <span class="option-label">Not at all</span>
+                                <span class="option-value">0</span>
+                            </label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q5" value="1" id="q5_1">
+                            <label for="q5_1" class="radio-label">
+                                <span class="option-label">Several days</span>
+                                <span class="option-value">1</span>
+                            </label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q5" value="2" id="q5_2">
+                            <label for="q5_2" class="radio-label">
+                                <span class="option-label">More than half the days</span>
+                                <span class="option-value">2</span>
+                            </label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q5" value="3" id="q5_3">
+                            <label for="q5_3" class="radio-label">
+                                <span class="option-label">Nearly every day</span>
+                                <span class="option-value">3</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 6 -->
+                <div class="question-group">
+                    <div class="question-text">
+                        <span class="question-number">6.</span>
+                        Feeling bad about yourself — or that you are a failure or have let yourself or your family down
+                    </div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q6" value="0" id="q6_0" required>
+                            <label for="q6_0" class="radio-label">
+                                <span class="option-label">Not at all</span>
+                                <span class="option-value">0</span>
+                            </label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q6" value="1" id="q6_1">
+                            <label for="q6_1" class="radio-label">
+                                <span class="option-label">Several days</span>
+                                <span class="option-value">1</span>
+                            </label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q6" value="2" id="q6_2">
+                            <label for="q6_2" class="radio-label">
+                                <span class="option-label">More than half the days</span>
+                                <span class="option-value">2</span>
+                            </label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q6" value="3" id="q6_3">
+                            <label for="q6_3" class="radio-label">
+                                <span class="option-label">Nearly every day</span>
+                                <span class="option-value">3</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 7 -->
+                <div class="question-group">
+                    <div class="question-text">
+                        <span class="question-number">7.</span>
+                        Trouble concentrating on things, such as reading the newspaper or watching television
+                    </div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q7" value="0" id="q7_0" required>
+                            <label for="q7_0" class="radio-label">
+                                <span class="option-label">Not at all</span>
+                                <span class="option-value">0</span>
+                            </label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q7" value="1" id="q7_1">
+                            <label for="q7_1" class="radio-label">
+                                <span class="option-label">Several days</span>
+                                <span class="option-value">1</span>
+                            </label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q7" value="2" id="q7_2">
+                            <label for="q7_2" class="radio-label">
+                                <span class="option-label">More than half the days</span>
+                                <span class="option-value">2</span>
+                            </label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q7" value="3" id="q7_3">
+                            <label for="q7_3" class="radio-label">
+                                <span class="option-label">Nearly every day</span>
+                                <span class="option-value">3</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 8 -->
+                <div class="question-group">
+                    <div class="question-text">
+                        <span class="question-number">8.</span>
+                        Moving or speaking so slowly that other people could have noticed? Or the opposite — being so fidgety or restless that you have been moving around a lot more than usual
+                    </div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q8" value="0" id="q8_0" required>
+                            <label for="q8_0" class="radio-label">
+                                <span class="option-label">Not at all</span>
+                                <span class="option-value">0</span>
+                            </label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q8" value="1" id="q8_1">
+                            <label for="q8_1" class="radio-label">
+                                <span class="option-label">Several days</span>
+                                <span class="option-value">1</span>
+                            </label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q8" value="2" id="q8_2">
+                            <label for="q8_2" class="radio-label">
+                                <span class="option-label">More than half the days</span>
+                                <span class="option-value">2</span>
+                            </label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q8" value="3" id="q8_3">
+                            <label for="q8_3" class="radio-label">
+                                <span class="option-label">Nearly every day</span>
+                                <span class="option-value">3</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 9 -->
+                <div class="question-group">
+                    <div class="question-text">
+                        <span class="question-number">9.</span>
+                        Thoughts that you would be better off dead or of hurting yourself in some way
+                    </div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q9" value="0" id="q9_0" required>
+                            <label for="q9_0" class="radio-label">
+                                <span class="option-label">Not at all</span>
+                                <span class="option-value">0</span>
+                            </label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q9" value="1" id="q9_1">
+                            <label for="q9_1" class="radio-label">
+                                <span class="option-label">Several days</span>
+                                <span class="option-value">1</span>
+                            </label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q9" value="2" id="q9_2">
+                            <label for="q9_2" class="radio-label">
+                                <span class="option-label">More than half the days</span>
+                                <span class="option-value">2</span>
+                            </label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q9" value="3" id="q9_3">
+                            <label for="q9_3" class="radio-label">
+                                <span class="option-label">Nearly every day</span>
+                                <span class="option-value">3</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Difficulty Question -->
+                <div class="difficulty-section">
+                    <div class="difficulty-question">
+                        If you checked off any problems, how difficult have these problems made it for you to do your work, take care of things at home, or get along with other people?
+                    </div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="difficulty" value="0" id="diff_0">
+                            <label for="diff_0" class="radio-label">
+                                <span class="option-label">Not difficult at all</span>
+                            </label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="difficulty" value="1" id="diff_1">
+                            <label for="diff_1" class="radio-label">
+                                <span class="option-label">Somewhat difficult</span>
+                            </label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="difficulty" value="2" id="diff_2">
+                            <label for="diff_2" class="radio-label">
+                                <span class="option-label">Very difficult</span>
+                            </label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="difficulty" value="3" id="diff_3">
+                            <label for="diff_3" class="radio-label">
+                                <span class="option-label">Extremely difficult</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Score Display -->
+                <div class="score-display" id="scoreDisplay" style="display: none;">
+                    <div class="score-label">Total PHQ-9 Score</div>
+                    <div class="score-value" id="scoreValue">0</div>
+                    <div class="severity-indicator" id="severityIndicator"></div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="button-group">
+                    <button type="button" class="btn btn-primary" onclick="calculateScore()">Calculate Score</button>
+                    <button type="button" class="btn btn-secondary" onclick="saveResults()">Save Results</button>
+                    <button type="button" class="btn btn-secondary" onclick="resetForm()">Reset Form</button>
+                </div>
+
+                <div class="success-message" id="successMessage">
+                    ✓ Results saved successfully! You can access them anytime.
+                </div>
+            </form>
+
+            <div class="disclaimer">
+                <strong>Important:</strong> This questionnaire is a screening tool and not a diagnostic instrument. The results should be discussed with a qualified healthcare professional. If you're experiencing thoughts of self-harm, please contact a crisis helpline immediately or seek emergency medical attention.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dark Mode Toggle
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            const themeIcon = document.getElementById('themeIcon');
+            
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            themeIcon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+        }
+
+        // Load saved theme
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const theme = savedTheme || (prefersDark ? 'dark' : 'light');
+            const themeIcon = document.getElementById('themeIcon');
+            
+            document.documentElement.setAttribute('data-theme', theme);
+            if (themeIcon) {
+                themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+            }
+        })();
+
+        // Calculate PHQ-9 Score
+        function calculateScore() {
+            const form = document.getElementById('phq9Form');
+            
+            // Check if all questions are answered
+            let allAnswered = true;
+            for (let i = 1; i <= 9; i++) {
+                const answered = form.querySelector(`input[name="q${i}"]:checked`);
+                if (!answered) {
+                    allAnswered = false;
+                    break;
+                }
+            }
+
+            if (!allAnswered) {
+                alert('Please answer all 9 questions before calculating your score.');
+                return;
+            }
+
+            // Calculate total score
+            let totalScore = 0;
+            for (let i = 1; i <= 9; i++) {
+                const selected = form.querySelector(`input[name="q${i}"]:checked`);
+                if (selected) {
+                    totalScore += parseInt(selected.value);
+                }
+            }
+
+            // Display score
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            const scoreValue = document.getElementById('scoreValue');
+            const severityIndicator = document.getElementById('severityIndicator');
+
+            scoreValue.textContent = totalScore;
+            
+            // Determine severity
+            let severity = '';
+            if (totalScore >= 0 && totalScore <= 4) {
+                severity = 'Minimal Depression';
+            } else if (totalScore >= 5 && totalScore <= 9) {
+                severity = 'Mild Depression';
+            } else if (totalScore >= 10 && totalScore <= 14) {
+                severity = 'Moderate Depression';
+            } else if (totalScore >= 15 && totalScore <= 19) {
+                severity = 'Moderately Severe Depression';
+            } else if (totalScore >= 20) {
+                severity = 'Severe Depression';
+            }
+
+            severityIndicator.textContent = severity;
+            scoreDisplay.style.display = 'block';
+
+            // Scroll to score
+            scoreDisplay.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // Save Results
+        function saveResults() {
+            const form = document.getElementById('phq9Form');
+            
+            // Check if score has been calculated
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            if (scoreDisplay.style.display === 'none') {
+                alert('Please calculate your score first before saving.');
+                return;
+            }
+
+            // Collect all responses
+            const responses = {
+                date: new Date().toISOString(),
+                timestamp: Date.now(),
+                answers: {},
+                difficulty: null,
+                totalScore: parseInt(document.getElementById('scoreValue').textContent),
+                severity: document.getElementById('severityIndicator').textContent
+            };
+
+            // Get question responses
+            for (let i = 1; i <= 9; i++) {
+                const selected = form.querySelector(`input[name="q${i}"]:checked`);
+                if (selected) {
+                    responses.answers[`q${i}`] = parseInt(selected.value);
+                }
+            }
+
+            // Get difficulty response
+            const difficultySelected = form.querySelector('input[name="difficulty"]:checked');
+            if (difficultySelected) {
+                responses.difficulty = parseInt(difficultySelected.value);
+            }
+
+            // Save to memory (using JavaScript variable since localStorage is not available)
+            if (!window.phq9Results) {
+                window.phq9Results = [];
+            }
+            window.phq9Results.push(responses);
+
+            // Show success message
+            const successMessage = document.getElementById('successMessage');
+            successMessage.classList.add('show');
+            setTimeout(() => {
+                successMessage.classList.remove('show');
+            }, 3000);
+
+            // Generate downloadable JSON file
+            const dataStr = JSON.stringify(responses, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `PHQ9_Results_${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+
+            console.log('Results saved:', responses);
+            console.log('All saved results:', window.phq9Results);
+        }
+
+        // Reset Form
+        function resetForm() {
+            if (confirm('Are you sure you want to reset the form? All answers will be cleared.')) {
+                document.getElementById('phq9Form').reset();
+                document.getElementById('scoreDisplay').style.display = 'none';
+                document.getElementById('successMessage').classList.remove('show');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        // Auto-calculate score when all questions are answered
+        document.getElementById('phq9Form').addEventListener('change', function() {
+            let allAnswered = true;
+            for (let i = 1; i <= 9; i++) {
+                const answered = document.querySelector(`input[name="q${i}"]:checked`);
+                if (!answered) {
+                    allAnswered = false;
+                    break;
+                }
+            }
+
+            if (allAnswered) {
+                // Auto-show calculate button highlight or auto-calculate
+                const calculateBtn = document.querySelector('.btn-primary');
+                calculateBtn.style.animation = 'pulse 1s ease-in-out';
+            }
+        });
+
+        // Add pulse animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(1.05); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
